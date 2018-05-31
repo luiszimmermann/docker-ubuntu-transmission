@@ -10,3 +10,5 @@ RUN apt-get update && apt-get install -y apt-utils && apt-get full-upgrade -y &&
 RUN add-apt-repository -y ppa:transmissionbt/ppa && \
     apt-get update && \
 	apt-get install -y transmission-cli transmission-common transmission-daemon
+
+EXPOSE 9091 51413/tcp 51413/udp

@@ -11,6 +11,12 @@ RUN add-apt-repository -y ppa:transmissionbt/ppa && \
     apt-get update && \
 	apt-get install -y transmission-cli transmission-common transmission-daemon
 
-VOLUME ["/var/lib/transmission-daemon"]
+RUN service transmission-daemon start
+RUN service transmission-daemon stop
+
+
+RUN service transmission-daemon start
 	
+VOLUME ["/var/lib/transmission-daemon"]
+
 EXPOSE 9091 51413/tcp 51413/udp

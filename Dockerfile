@@ -12,10 +12,6 @@ RUN add-apt-repository -y ppa:transmissionbt/ppa && \
 	apt-get install -y transmission-cli transmission-common transmission-daemon
 
 RUN service transmission-daemon start
-RUN service transmission-daemon stop
-
-
-RUN service transmission-daemon start
 	
 VOLUME ["/var/lib/transmission-daemon"]
 

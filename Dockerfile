@@ -5,14 +5,14 @@ MAINTAINER zato <tato.zimmermann@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y apt-utils && apt-get full-upgrade -y && \
-    apt-get install -y software-properties-common
+    apt-get install -y software-properties-common jq
 
 RUN add-apt-repository -y ppa:transmissionbt/ppa && \
     apt-get update && \
 	apt-get install -y transmission-cli transmission-common transmission-daemon
 
-RUN service transmission-daemon start
-	
+RUN service transmission-daemon start && service transmission-daemon stop
+
 VOLUME ["/var/lib/transmission-daemon"]
 
 EXPOSE 9091 51413/tcp 51413/udp

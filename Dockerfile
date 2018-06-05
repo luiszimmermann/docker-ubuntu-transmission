@@ -11,6 +11,8 @@ RUN add-apt-repository -y ppa:transmissionbt/ppa && \
     apt-get update && \
 	apt-get install -y transmission-cli transmission-common transmission-daemon
 
+RUN apt-get clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+
 RUN service transmission-daemon start && service transmission-daemon stop
 
 RUN cd /var/lib/transmission-daemon/info && \ 

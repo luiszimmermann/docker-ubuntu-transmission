@@ -18,6 +18,8 @@ RUN cd /var/lib/transmission-daemon/info && \
     jq '."rpc-username" = "transmissionuser"' settings.json && \
     jq '."rpc-password" = "tpass8794"' settings.json
 
+RUN service transmission-daemon start
+
 VOLUME ["/var/lib/transmission-daemon"]
 
 EXPOSE 9091 51413/tcp 51413/udp

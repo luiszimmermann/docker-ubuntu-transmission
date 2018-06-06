@@ -24,6 +24,11 @@ RUN cd /var/lib/transmission-daemon/info && \
     jq '."rpc-password" = env.PASSWORD' settings.json > tmp.json && mv tmp.json settings.json && \
     jq '.' settings.json
 
+RUN useradd -ms /bin/bash transmissionuser && \
+    echo transmissionuser:$PASSWORD | chpasswd
+
 VOLUME ["/var/lib/transmission-daemon"]
 
 EXPOSE 9091 51413/tcp 51413/udp
+
+ENTRYPOINT service transmission-daemon restart && bash

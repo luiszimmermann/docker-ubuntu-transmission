@@ -7,14 +7,14 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV USERNAME=transmissionuser
 ENV PASSWORD=tpass
 
-RUN apt-get update && apt-get install -y apt-utils && apt-get full-upgrade -y && \
-    apt-get install -y software-properties-common jq
+RUN apt-get -qq update && apt-get -qq  install -y apt-utils && apt-get -qq full-upgrade -y && \
+    apt-get -qq install -y software-properties-common jq
 
 RUN add-apt-repository -y ppa:transmissionbt/ppa && \
-    apt-get update && \
-	apt-get install -y transmission-cli transmission-common transmission-daemon
+    apt-get -qq update && \
+	apt-get -qq install -y transmission-cli transmission-common transmission-daemon
 
-RUN apt-get clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+RUN apt-get -qq clean && apt-get -qq -y autoremove && rm -rf /var/lib/apt/lists/*
 
 RUN service transmission-daemon start && service transmission-daemon stop
 

@@ -20,8 +20,8 @@ RUN service transmission-daemon start && service transmission-daemon stop
 
 RUN cd /var/lib/transmission-daemon/info && \ 
     jq '."rpc-host-whitelist-enabled" = false' settings.json > tmp.json && mv tmp.json settings.json && \
-    export user=$USERNAME && jq '."rpc-username" = "env.user"' settings.json > tmp.json && mv tmp.json settings.json && \
-    export pswd=$PASSWORD && jq '."rpc-password" = "env.pswd"' settings.json > tmp.json && mv tmp.json settings.json && \
+    jq '."rpc-username" = "$ENV.USERNAME"' settings.json > tmp.json && mv tmp.json settings.json && \
+    jq '."rpc-password" = "$ENV.PASSWORD"' settings.json > tmp.json && mv tmp.json settings.json && \
     jq '.' settings.json
 
 VOLUME ["/var/lib/transmission-daemon"]

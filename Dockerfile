@@ -4,8 +4,8 @@ LABEL maintainer="zato <tato.zimmermann@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV USERNAME=transmissionuser
-ENV PASSWORD=tpass
+ENV USERNAME="transmissionuser"
+ENV PASSWORD="tpass"
 
 RUN apt-get -qq update && apt-get install -qq -y apt-utils >/dev/null && apt-get full-upgrade -qq -y >/dev/null && \
     apt-get install -y -qq software-properties-common jq >/dev/null
@@ -20,8 +20,8 @@ RUN service transmission-daemon start && service transmission-daemon stop
 
 RUN cd /var/lib/transmission-daemon/info && \ 
     jq '."rpc-host-whitelist-enabled" = false' settings.json > tmp.json && mv tmp.json settings.json && \
-    jq '."rpc-username" = "$ENV.USERNAME"' settings.json > tmp.json && mv tmp.json settings.json && \
-    jq '."rpc-password" = "$ENV.PASSWORD"' settings.json > tmp.json && mv tmp.json settings.json && \
+    jq '."rpc-username" = env.USERNAME' settings.json > tmp.json && mv tmp.json settings.json && \
+    jq '."rpc-password" = env.PASSWORD' settings.json > tmp.json && mv tmp.json settings.json && \
     jq '.' settings.json
 
 VOLUME ["/var/lib/transmission-daemon"]
